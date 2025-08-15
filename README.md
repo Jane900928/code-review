@@ -1,317 +1,311 @@
-# Code Review Agent
+# Code Review Agent - Latest Mastra Framework
 
-基于Mastra框架和DeepSeek AI模型构建的智能代码审查Agent。
+基于最新Mastra框架和DeepSeek AI模型构建的智能代码审查Agent，支持Cloudflare Workers部署。
 
-## 功能特性
+## 🚀 功能特性
 
-- 🤖 集成DeepSeek AI模型进行智能代码分析
-- 🔍 全面的代码质量检查
-- 🛡️ 安全漏洞检测
-- 📊 性能优化建议
-- 💬 友好的聊天界面交互
-- 🎨 现代化的Web UI
-- 🌐 支持多种编程语言
-- 📋 详细的分析报告
+- 🤖 **多专业Agent**: 代码质量、安全、性能、质量评估专家
+- 🔧 **智能工具**: 代码分析和安全扫描工具
+- 📊 **工作流编排**: 快速审查和综合分析工作流
+- ☁️ **Cloudflare部署**: 支持一键部署到Cloudflare Workers
+- 🎨 **现代化UI**: React + Next.js前端界面
+- 🔍 **全面分析**: 质量、安全、性能三重检查
 
-## 技术栈
+## 📋 技术栈
 
-- **框架**: Mastra
-- **AI模型**: DeepSeek
-- **前端**: Next.js + React
-- **后端**: Express.js
-- **样式**: Tailwind CSS
-- **代码高亮**: Highlight.js
-- **Markdown渲染**: Marked
+- **AI框架**: [Mastra](https://mastra.ai/) (最新版本)
+- **AI模型**: DeepSeek Chat
+- **部署平台**: Cloudflare Workers
+- **前端**: Next.js + React + Tailwind CSS
+- **后端**: Hono (通过Mastra)
+- **类型安全**: TypeScript + Zod
 
-## 支持的编程语言
+## 🏗️ 项目结构
 
-- JavaScript/TypeScript
-- Python
-- Java
-- C#/C/C++
-- Go
-- Rust
-- PHP
-- Ruby
-- Swift
-- Kotlin
-- SQL
-- HTML/CSS
-- 以及更多...
+```
+code-review/
+├── src/mastra/                 # Mastra应用核心
+│   ├── index.ts               # 主配置入口
+│   ├── agents/                # AI Agents
+│   │   ├── codeReviewAgent.ts
+│   │   ├── securityAgent.ts
+│   │   ├── performanceAgent.ts
+│   │   └── qualityAgent.ts
+│   ├── tools/                 # 工具函数
+│   │   ├── codeAnalysisTool.ts
+│   │   └── securityScanTool.ts
+│   └── workflows/             # 工作流
+│       ├── comprehensiveReviewWorkflow.ts
+│       └── quickReviewWorkflow.ts
+├── src/pages/                 # Next.js前端页面
+├── src/components/            # React组件
+├── wrangler.toml             # Cloudflare配置
+└── package.json              # 项目依赖
+```
 
-## 快速开始
+## ⚡ 快速开始
 
-### 1. 克隆项目
+### 1. 环境准备
+
+确保您已安装：
+- Node.js 18+
+- npm 或 pnpm
+- Git
+
+### 2. 克隆项目
 
 ```bash
 git clone https://github.com/Jane900928/code-review.git
 cd code-review
 ```
 
-### 2. 安装依赖
+### 3. 安装依赖
 
 ```bash
 npm install
+# 或
+pnpm install
 ```
 
-### 3. 环境配置
-
-复制环境变量文件并填入你的配置：
+### 4. 环境配置
 
 ```bash
 cp .env.example .env
 ```
 
-在 `.env` 文件中填入你的DeepSeek API Key：
+编辑 `.env` 文件，填入必要配置：
 
 ```env
-DEEPSEEK_API_KEY=your_actual_api_key_here
-DEEPSEEK_BASE_URL=https://api.deepseek.com
-AGENT_PORT=3001
-NEXT_PUBLIC_AGENT_URL=http://localhost:3001
+# DeepSeek AI配置 (必需)
+DEEPSEEK_API_KEY=your_deepseek_api_key_here
+
+# Cloudflare配置 (部署时需要)
+CLOUDFLARE_ACCOUNT_ID=your_account_id
+CLOUDFLARE_API_TOKEN=your_api_token
 ```
 
-### 4. 启动服务
+### 5. 本地开发
 
-启动Agent服务器：
-
-```bash
-npm run agent:dev
-```
-
-启动Web界面（新终端）：
+启动Mastra开发服务器：
 
 ```bash
 npm run dev
 ```
 
-### 5. 访问应用
+这将启动：
+- 🚀 Mastra Playground: http://localhost:4111
+- 📊 API文档: http://localhost:4111/openapi.json
+- 🧪 Swagger UI: http://localhost:4111/swagger-ui
 
-- Web界面: http://localhost:3000
-- Agent API: http://localhost:3001
-- 健康检查: http://localhost:3001/health
-
-## 使用方法
-
-### 基础代码审查
-
-1. 在聊天界面中粘贴你的代码
-2. 选择合适的编程语言
-3. 点击发送获取基础代码审查报告
-
-### 综合分析
-
-1. 启用"安全性"或"性能"选项
-2. 提交代码进行全面分析
-3. 获取包含多个维度的详细报告
-
-### API使用
-
-#### 基础代码审查
+启动前端界面：
 
 ```bash
-curl -X POST http://localhost:3001/api/code-review \
+npm run web:dev
+```
+
+访问 http://localhost:3000 查看Web界面。
+
+## 🧪 使用Mastra Playground
+
+Mastra提供了强大的本地开发环境：
+
+1. **Agent测试**: 在 http://localhost:4111 测试各个Agent
+2. **工作流调试**: 可视化调试工作流执行过程
+3. **工具测试**: 独立测试各个工具函数
+4. **API探索**: 通过Swagger UI探索所有API端点
+
+### Agent示例
+
+```bash
+# 测试代码审查Agent
+curl -X POST http://localhost:4111/api/agents/code-reviewer/generate \
+  -H "Content-Type: application/json" \
+  -d '{"messages": ["请审查这段JavaScript代码: function add(a, b) { return a + b; }"]}'
+
+# 测试安全专家Agent
+curl -X POST http://localhost:4111/api/agents/security-specialist/generate \
+  -H "Content-Type: application/json" \
+  -d '{"messages": ["检查这段代码的安全性: SELECT * FROM users WHERE id = " + userId"]}'
+```
+
+### 工作流示例
+
+```bash
+# 快速审查工作流
+curl -X POST http://localhost:4111/api/workflows/quick-code-review/run \
   -H "Content-Type: application/json" \
   -d '{
     "code": "function example() { console.log(\"Hello\"); }",
     "language": "javascript",
-    "context": "这是一个示例函数"
+    "focusArea": "quality"
   }'
-```
 
-#### 安全性检查
-
-```bash
-curl -X POST http://localhost:3001/api/security-check \
+# 综合审查工作流
+curl -X POST http://localhost:4111/api/workflows/comprehensive-code-review/run \
   -H "Content-Type: application/json" \
   -d '{
-    "code": "SELECT * FROM users WHERE id = " + userId,
-    "language": "sql"
-  }'
-```
-
-#### 性能分析
-
-```bash
-curl -X POST http://localhost:3001/api/performance-analysis \
-  -H "Content-Type: application/json" \
-  -d '{
-    "code": "for(let i=0; i<arr.length; i++) { /* ... */ }",
-    "language": "javascript"
-  }'
-```
-
-#### 综合分析
-
-```bash
-curl -X POST http://localhost:3001/api/comprehensive-review \
-  -H "Content-Type: application/json" \
-  -d '{
-    "code": "你的代码",
+    "code": "your code here",
     "language": "javascript",
-    "includeAnalysis": ["security", "performance"]
+    "includeSecurityScan": true,
+    "includePerformanceAnalysis": true,
+    "includeQualityAssessment": true
   }'
 ```
 
-## 项目结构
+## ☁️ Cloudflare部署
 
-```
-code-review/
-├── src/
-│   ├── agent/           # Mastra Agent配置
-│   │   ├── codeReviewAgent.js
-│   │   └── server.js
-│   ├── pages/           # Next.js页面
-│   │   ├── _app.js
-│   │   └── index.js
-│   ├── components/      # React组件
-│   │   ├── ChatInterface.js
-│   │   ├── MessageRenderer.js
-│   │   └── CodeBlock.js
-│   └── styles/          # 样式文件
-│       └── globals.css
-├── public/             # 静态资源
-├── package.json
-├── next.config.js
-├── tailwind.config.js
-└── README.md
-```
+### 准备工作
 
-## 开发
+1. 创建Cloudflare账号
+2. 获取Account ID和API Token
+3. 配置环境变量
 
-### 开发模式
+### 一键部署
 
 ```bash
-# 同时启动前后端开发服务器
-npm run dev & npm run agent:dev
-```
-
-### 构建生产版本
-
-```bash
+# 构建Mastra应用
 npm run build
-npm start
+
+# 部署到Cloudflare
+npm run deploy
 ```
 
-### 代码规范
-
-项目使用ESLint进行代码规范检查：
+### 手动部署
 
 ```bash
-npm run lint
+# 安装Wrangler CLI
+npm install -g wrangler
+
+# 登录Cloudflare
+wrangler login
+
+# 部署Worker
+wrangler deploy
 ```
 
-## 配置说明
+### 环境变量设置
 
-### 环境变量
+在Cloudflare Dashboard中设置以下secrets：
 
-| 变量名 | 说明 | 默认值 |
-|--------|------|--------|
-| `DEEPSEEK_API_KEY` | DeepSeek API密钥 | 必填 |
-| `DEEPSEEK_BASE_URL` | DeepSeek API基础URL | `https://api.deepseek.com` |
-| `AGENT_PORT` | Agent服务端口 | `3001` |
-| `NEXT_PUBLIC_AGENT_URL` | Agent服务URL | `http://localhost:3001` |
-
-### Mastra配置
-
-Agent配置在 `src/agent/codeReviewAgent.js` 中，你可以：
-
-- 调整AI模型参数
-- 修改指令提示词
-- 添加新的分析功能
-
-### 前端配置
-
-- `next.config.js`: Next.js配置
-- `tailwind.config.js`: Tailwind CSS配置
-- `src/styles/globals.css`: 全局样式
-
-## API文档
-
-### 端点列表
-
-- `GET /health` - 健康检查
-- `GET /api/supported-languages` - 获取支持的编程语言
-- `POST /api/code-review` - 基础代码审查
-- `POST /api/security-check` - 安全性检查
-- `POST /api/performance-analysis` - 性能分析
-- `POST /api/comprehensive-review` - 综合分析
-
-### 响应格式
-
-```json
-{
-  "success": true,
-  "data": {
-    "review": "分析结果...",
-    "language": "javascript",
-    "timestamp": "2025-08-15T15:30:00.000Z"
-  }
-}
+```bash
+# 通过CLI设置
+wrangler secret put DEEPSEEK_API_KEY
+# 输入您的DeepSeek API Key
 ```
 
-## 故障排除
+或通过Cloudflare Dashboard:
+1. 进入Workers & Pages
+2. 选择您的Worker
+3. 进入Settings > Environment Variables
+4. 添加DEEPSEEK_API_KEY
 
-### 常见问题
+### 自定义域名
 
-1. **Agent服务无法启动**
-   - 检查端口3001是否被占用
-   - 确认DeepSeek API Key配置正确
+在 `wrangler.toml` 中配置：
 
-2. **前端无法连接Agent**
-   - 确认Agent服务正在运行
-   - 检查CORS配置
+```toml
+[[routes]]
+pattern = "code-review.yourdomain.com/*"
+zone_name = "yourdomain.com"
+```
 
-3. **代码分析失败**
-   - 检查网络连接
-   - 验证API Key是否有效
-   - 查看控制台错误信息
+## 🔧 Agent配置
 
-### 日志查看
+### 代码审查Agent
+专注于代码质量、结构和最佳实践分析。
 
-Agent服务会输出详细的日志信息，包括：
-- API请求记录
-- 错误信息
-- 性能指标
+### 安全专家Agent
+检测SQL注入、XSS、认证问题等安全漏洞。
 
-## 贡献
+### 性能优化Agent
+分析算法复杂度、内存使用和性能瓶颈。
 
-欢迎提交Issue和Pull Request！
+### 质量评估Agent
+提供综合质量评分和改进建议。
 
-### 开发流程
+## 🛠️ 工具说明
+
+### 代码分析工具
+- 静态代码分析
+- 质量指标计算
+- 问题检测和建议
+
+### 安全扫描工具
+- 漏洞检测
+- 风险评估
+- CWE标准映射
+
+## 📊 工作流详解
+
+### 快速审查工作流
+适合日常开发中的快速代码检查，支持按领域聚焦分析。
+
+### 综合审查工作流
+完整的多维度分析，包含所有专业Agent的深度检查。
+
+## 🎨 前端界面
+
+现代化的React前端提供：
+- 实时聊天式交互
+- 代码高亮显示
+- 分析结果可视化
+- 响应式设计
+
+## 📈 监控和日志
+
+Mastra内置OpenTelemetry支持：
+- 请求追踪
+- 性能监控
+- 错误日志
+- 使用分析
+
+## 🔐 安全配置
+
+- API密钥通过环境变量管理
+- Cloudflare Workers安全沙箱
+- HTTPS强制加密
+- 输入验证和清理
+
+## 🚀 性能优化
+
+- Cloudflare全球CDN
+- 边缘计算降低延迟
+- 智能缓存策略
+- 流式响应支持
+
+## 🤝 贡献指南
 
 1. Fork项目
-2. 创建功能分支
-3. 提交更改
-4. 创建Pull Request
+2. 创建功能分支: `git checkout -b feature/new-feature`
+3. 提交更改: `git commit -am 'Add some feature'`
+4. 推送分支: `git push origin feature/new-feature`
+5. 提交Pull Request
 
-### 代码规范
+## 📝 更新日志
 
-- 使用ESLint规范
-- 添加适当的注释
-- 编写测试用例
-
-## 许可证
-
-MIT License
-
-## 更新日志
+### v2.0.0 (2025-08-15)
+- ✨ 升级到最新Mastra框架
+- 🏗️ 重构为标准Agent/Tools/Workflows架构
+- ☁️ 添加Cloudflare Workers部署支持
+- 🔧 新增多个专业Agent
+- 📊 实现工作流编排
+- 🎨 改进前端界面
 
 ### v1.0.0 (2025-08-15)
+- 🎉 初始版本发布
+- 🤖 基础代码审查功能
+- 💬 聊天界面交互
 
-- ✨ 初始版本发布
-- 🤖 集成Mastra框架和DeepSeek AI
-- 💬 实现聊天界面
-- 🔍 支持多种代码分析功能
-- 🎨 现代化UI设计
+## 📞 支持
 
-## 致谢
+- 📖 [Mastra文档](https://mastra.ai/en/docs)
+- 🐛 [问题反馈](https://github.com/Jane900928/code-review/issues)
+- 💬 [讨论区](https://github.com/Jane900928/code-review/discussions)
 
-- [Mastra](https://mastra.ai/) - AI Agent框架
-- [DeepSeek](https://www.deepseek.com/) - AI模型提供商
-- [Next.js](https://nextjs.org/) - React框架
-- [Tailwind CSS](https://tailwindcss.com/) - CSS框架
+## 📄 许可证
+
+MIT License - 详见 [LICENSE](LICENSE) 文件
 
 ---
 
-如有问题，请提交Issue或联系维护者。
+**⭐ 如果这个项目对您有帮助，请给个Star支持！**
