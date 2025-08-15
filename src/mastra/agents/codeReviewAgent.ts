@@ -36,9 +36,6 @@ export const codeReviewAgent = new Agent({
     🔴 严重问题 🟡 一般问题 🟢 优化建议 ✅ 良好实践
   `,
   model: deepseek('deepseek-chat'),
-  tools: {
-    codeAnalysisTool: 'codeAnalysisTool',
-  },
 });
 
 export default codeReviewAgent;
