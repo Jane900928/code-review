@@ -24,7 +24,7 @@ export const mastra = new Mastra({
     qualityAgent,
   },
 
-  // Register all tools
+  // Register all tools  
   tools: {
     codeAnalysisTool,
     securityScanTool,
@@ -36,29 +36,7 @@ export const mastra = new Mastra({
     quickReviewWorkflow,
   },
 
-  // Cloudflare deployment configuration
-  deployer: new CloudflareDeployer({
-    projectName: 'code-review-agent',
-    // These will be set via environment variables or CLI
-    scope: process.env.CLOUDFLARE_ACCOUNT_ID,
-    auth: {
-      apiToken: process.env.CLOUDFLARE_API_TOKEN,
-    },
-    workerNamespace: 'code-review',
-    routes: [
-      {
-        pattern: '*',
-        zone_name: process.env.CLOUDFLARE_ZONE_NAME,
-        custom_domain: process.env.CLOUDFLARE_CUSTOM_DOMAIN === 'true',
-      },
-    ],
-    env: {
-      DEEPSEEK_API_KEY: process.env.DEEPSEEK_API_KEY,
-      DEEPSEEK_BASE_URL: process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com',
-    },
-  }),
-
-  // Server configuration
+  // Server configuration for development
   server: {
     port: process.env.PORT || 4111,
     host: process.env.HOST || '0.0.0.0',
@@ -68,10 +46,33 @@ export const mastra = new Mastra({
     },
   },
 
-  // Enable telemetry for monitoring
+  // Conditionally add deployer only for build/deploy commands
+  ...(process.env.NODE_ENV === 'production' && {
+    deployer: new CloudflareDeployer({
+      projectName: 'code-review-agent',
+      scope: process.env.CLOUDFLARE_ACCOUNT_ID,
+      auth: {
+        apiToken: process.env.CLOUDFLARE_API_TOKEN,
+      },
+      workerNamespace: 'code-review',
+      routes: process.env.CLOUDFLARE_ZONE_NAME ? [
+        {
+          pattern: '*',
+          zone_name: process.env.CLOUDFLARE_ZONE_NAME,
+          custom_domain: process.env.CLOUDFLARE_CUSTOM_DOMAIN === 'true',
+        },
+      ] : undefined,
+      env: {
+        DEEPSEEK_API_KEY: process.env.DEEPSEEK_API_KEY,
+        DEEPSEEK_BASE_URL: process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com',
+      },
+    }),
+  }),
+
+  // Enable telemetry for monitoring (optional)
   telemetry: {
     serviceName: 'code-review-agent',
-    enabled: process.env.NODE_ENV === 'production',
+    enabled: process.env.ENABLE_TELEMETRY === 'true',
     sampling: {
       type: 'ratio',
       probability: 0.1,
