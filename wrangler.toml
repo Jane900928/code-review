@@ -1,0 +1,41 @@
+name = "code-review-agent"
+main = ".mastra/output/index.mjs"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+NODE_ENV = "production"
+DEEPSEEK_BASE_URL = "https://api.deepseek.com"
+
+# Environment variables (secrets should be set via Cloudflare dashboard)
+# DEEPSEEK_API_KEY will be set as a secret
+
+# Optional: Custom domain routing
+# [[routes]]
+# pattern = "code-review.yourdomain.com/*"
+# zone_name = "yourdomain.com"
+
+# Optional: KV namespace for caching
+# [[kv_namespaces]]
+# binding = "CACHE"
+# id = "your-kv-namespace-id"
+# preview_id = "your-preview-kv-namespace-id"
+
+# Optional: D1 database for storing analysis results
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "code-review-db"
+# database_id = "your-database-id"
+
+# Worker limits and configuration
+[limits]
+cpu_ms = 30000  # 30 seconds for complex code analysis
+
+# Build configuration
+[build]
+command = "npm run build"
+
+# Assets configuration for any static files
+# [assets]
+# directory = "./public"
+# binding = "ASSETS"
