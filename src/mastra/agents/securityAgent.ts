@@ -40,9 +40,6 @@ export const securityAgent = new Agent({
     - 防护最佳实践
   `,
   model: deepseek('deepseek-chat'),
-  tools: {
-    securityScanTool: 'securityScanTool',
-  },
 });
 
 export default securityAgent;
