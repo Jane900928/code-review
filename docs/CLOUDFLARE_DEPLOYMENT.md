@@ -81,7 +81,7 @@ wrangler deploy
 
 ```env
 # DeepSeek AI配置
-DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxx
+OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxx
 DEEPSEEK_BASE_URL=https://api.deepseek.com
 
 # Cloudflare配置
@@ -125,7 +125,7 @@ cpu_ms = 30000  # 30秒，适合复杂代码分析
 
 ```bash
 # 设置DeepSeek API Key
-wrangler secret put DEEPSEEK_API_KEY
+wrangler secret put OPENAI_API_KEY
 # 提示时输入您的API密钥
 
 # 验证密钥设置
@@ -138,7 +138,7 @@ wrangler secret list
 2. Workers & Pages → 选择您的Worker
 3. Settings → Environment Variables
 4. 添加新的Secret:
-   - Name: `DEEPSEEK_API_KEY`
+   - Name: `OPENAI_API_KEY`
    - Value: 您的DeepSeek API密钥
 
 ## 🌐 自定义域名
@@ -263,8 +263,8 @@ class_name = "SessionManager"
 2. **API密钥错误**
    ```bash
    # 重新设置密钥
-   wrangler secret delete DEEPSEEK_API_KEY
-   wrangler secret put DEEPSEEK_API_KEY
+   wrangler secret delete OPENAI_API_KEY
+   wrangler secret put OPENAI_API_KEY
    ```
 
 3. **域名配置问题**
@@ -360,7 +360,7 @@ jobs:
 在GitHub仓库设置中添加：
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
-- `DEEPSEEK_API_KEY`
+- `OPENAI_API_KEY`
 
 ## 📈 扩展部署
 

@@ -73,7 +73,7 @@ nano .env
 
 ```env
 NODE_ENV=production
-DEEPSEEK_API_KEY=your_production_api_key
+OPENAI_API_KEY=your_production_api_key
 DEEPSEEK_BASE_URL=https://api.deepseek.com
 AGENT_PORT=3001
 NEXT_PUBLIC_AGENT_URL=https://yourdomain.com/api
@@ -84,7 +84,7 @@ NEXT_PUBLIC_AGENT_URL=https://yourdomain.com/api
 创建 `ecosystem.config.js`:
 
 ```javascript
-module.exports = {
+export default {
   apps: [
     {
       name: 'code-review-agent',
@@ -197,7 +197,7 @@ services:
       - "3001:3001"
     environment:
       - NODE_ENV=production
-      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
       - AGENT_PORT=3001
     restart: unless-stopped
 ```
@@ -206,7 +206,7 @@ services:
 
 ### 必需变量
 
-- `DEEPSEEK_API_KEY`: DeepSeek API密钥
+- `OPENAI_API_KEY`: DeepSeek API密钥
 - `DEEPSEEK_BASE_URL`: API基础URL (默认: https://api.deepseek.com)
 - `AGENT_PORT`: Agent服务端口 (默认: 3001)
 - `NEXT_PUBLIC_AGENT_URL`: Agent服务URL
@@ -366,7 +366,7 @@ spec:
         - containerPort: 3000
         - containerPort: 3001
         env:
-        - name: DEEPSEEK_API_KEY
+        - name: OPENAI_API_KEY
           valueFrom:
             secretKeyRef:
               name: deepseek-secret

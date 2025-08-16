@@ -77,7 +77,7 @@ cp .env.example .env
 
 ```env
 # DeepSeek AI配置 (必需)
-DEEPSEEK_API_KEY=your_deepseek_api_key_here
+OPENAI_API_KEY=your_OPENAI_API_KEY_here
 
 # Cloudflare配置 (部署时需要)
 CLOUDFLARE_ACCOUNT_ID=your_account_id
@@ -189,7 +189,7 @@ wrangler deploy
 
 ```bash
 # 通过CLI设置
-wrangler secret put DEEPSEEK_API_KEY
+wrangler secret put OPENAI_API_KEY
 # 输入您的DeepSeek API Key
 ```
 
@@ -197,7 +197,7 @@ wrangler secret put DEEPSEEK_API_KEY
 1. 进入Workers & Pages
 2. 选择您的Worker
 3. 进入Settings > Environment Variables
-4. 添加DEEPSEEK_API_KEY
+4. 添加OPENAI_API_KEY
 
 ### 自定义域名
 

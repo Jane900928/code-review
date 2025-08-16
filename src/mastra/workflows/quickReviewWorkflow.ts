@@ -24,15 +24,15 @@ const quickAnalysis = createStep({
   id: 'quick-analysis',
   inputSchema: quickInputSchema,
   outputSchema: quickOutputSchema,
-  run: async ({ context }) => {
-    const { code, language, focusArea } = context;
-    
+  execute: async ({ inputData }) => {
+    const { code, language, focusArea } = inputData;
+
     // Perform focused analysis based on the focus area
     let review = '';
     let score = 7.5;
     const issues = [];
     let quickRecommendations = [];
-    
+
     switch (focusArea) {
       case 'quality':
         review = `
@@ -48,20 +48,20 @@ const quickAnalysis = createStep({
 
 ## 评分: ${score}/10
         `;
-        
+
         issues.push({
           type: 'naming',
           severity: 'low',
           message: '部分变量名可以更加描述性',
         });
-        
+
         quickRecommendations = [
           '使用更具描述性的变量名',
           '添加适当的代码注释',
           '考虑拆分复杂函数',
         ];
         break;
-        
+
       case 'security':
         review = `
 # 🛡️ 快速安全检查
@@ -75,20 +75,20 @@ const quickAnalysis = createStep({
 
 ## 评分: ${score}/10
         `;
-        
+
         issues.push({
           type: 'input-validation',
           severity: 'medium',
           message: '建议加强输入验证机制',
         });
-        
+
         quickRecommendations = [
           '实施严格的输入验证',
           '使用参数化查询',
           '添加错误处理机制',
         ];
         break;
-        
+
       case 'performance':
         review = `
 # ⚡ 快速性能检查
@@ -102,20 +102,20 @@ const quickAnalysis = createStep({
 
 ## 评分: ${score}/10
         `;
-        
+
         issues.push({
           type: 'complexity',
           severity: 'low',
           message: '某些循环可以优化',
         });
-        
+
         quickRecommendations = [
           '优化循环结构',
           '考虑缓存重复计算',
           '减少不必要的操作',
         ];
         break;
-        
+
       default: // general
         review = `
 # 🔍 快速代码审查
@@ -131,7 +131,7 @@ const quickAnalysis = createStep({
 
 ## 总体评分: ${score}/10
         `;
-        
+
         issues.push(
           {
             type: 'documentation',
@@ -144,7 +144,7 @@ const quickAnalysis = createStep({
             message: '可以改进错误处理',
           }
         );
-        
+
         quickRecommendations = [
           '增加代码注释和文档',
           '改进错误处理机制',
@@ -153,7 +153,7 @@ const quickAnalysis = createStep({
         ];
         break;
     }
-    
+
     return {
       review,
       score,

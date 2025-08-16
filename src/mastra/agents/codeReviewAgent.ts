@@ -4,7 +4,7 @@ import { createOpenAI } from '@ai-sdk/openai';
 // Configure DeepSeek with OpenAI compatibility
 const deepseek = createOpenAI({
   baseURL: process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com',
-  apiKey: process.env.DEEPSEEK_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export const codeReviewAgent = new Agent({

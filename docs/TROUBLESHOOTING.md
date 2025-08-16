@@ -53,7 +53,7 @@ npm run web:dev
 确保您的环境满足：
 - Node.js 18+
 - npm 8+
-- 已设置 `DEEPSEEK_API_KEY` 环境变量
+- 已设置 `OPENAI_API_KEY` 环境变量
 
 ### 常见问题
 

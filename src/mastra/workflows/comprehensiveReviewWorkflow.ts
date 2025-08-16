@@ -34,8 +34,8 @@ const initialCodeReview = createStep({
     review: z.string(),
     initialScore: z.number(),
   }),
-  run: async ({ context }) => {
-    const { code, language } = context;
+  execute: async ({ inputData }) => {
+    const { code, language } = inputData;
     
     // This would call the code review agent
     const review = `
@@ -78,8 +78,8 @@ const securityAnalysis = createStep({
     securityScore: z.number().optional(),
     riskLevel: z.string().optional(),
   }),
-  run: async ({ context }) => {
-    const { code, language, includeSecurityScan } = context;
+  execute: async ({ inputData }) => {
+    const { code, language, includeSecurityScan } = inputData;
     
     if (!includeSecurityScan) {
       return {
@@ -132,8 +132,8 @@ const performanceAnalysis = createStep({
     performanceReport: z.string().optional(),
     performanceScore: z.number().optional(),
   }),
-  run: async ({ context }) => {
-    const { code, language, includePerformanceAnalysis } = context;
+  execute: async ({ inputData }) => {
+    const { code, language, includePerformanceAnalysis } = inputData;
     
     if (!includePerformanceAnalysis) {
       return {
@@ -179,8 +179,8 @@ const qualityAssessment = createStep({
     qualityReport: z.string().optional(),
     qualityScore: z.number().optional(),
   }),
-  run: async ({ context }) => {
-    const { code, language, includeQualityAssessment } = context;
+  execute: async ({ inputData }) => {
+    const { code, language, includeQualityAssessment } = inputData;
     
     if (!includeQualityAssessment) {
       return {
@@ -236,8 +236,8 @@ const generateSummary = createStep({
     }),
     recommendations: z.array(z.string()),
   }),
-  run: async ({ context }) => {
-    const { initialScore, securityScore, performanceScore, qualityScore, riskLevel } = context;
+  execute: async ({ inputData }) => {
+    const { initialScore, securityScore, performanceScore, qualityScore, riskLevel } = inputData;
     
     // Calculate overall score
     const scores = [initialScore, securityScore, performanceScore, qualityScore].filter(s => s !== undefined);
