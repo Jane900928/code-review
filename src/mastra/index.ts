@@ -29,5 +29,8 @@ export const mastra = new Mastra({
   },
   deployer: new CloudflareDeployer({
     projectName: "mastra-code-workers",
+    env: {
+      ENVIRONMENT: "production",
+    },
   }),
 });

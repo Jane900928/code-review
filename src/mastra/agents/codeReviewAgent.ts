@@ -2,6 +2,7 @@ import { Agent } from '@mastra/core/agent';
 import { createOpenAI } from '@ai-sdk/openai';
 
 // Configure DeepSeek with OpenAI compatibility
+console.log(process.env.DEEPSEEK_BASE_URL)
 const deepseek = createOpenAI({
   baseURL: process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com',
   apiKey: process.env.OPENAI_API_KEY,

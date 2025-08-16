@@ -1,0 +1,38 @@
+{
+  "name": "test-agents",
+  "compatibility_date": "2024-09-23",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "nodejs_compat_populate_process_env"
+  ],
+  "main": ".mastra/output/index.mjs",
+  "workers_dev": true,
+//   "routes": [
+//     {
+//       "pattern": "test-agents.zhangmoon778.workers.dev/*",
+//       "zone_name": "zhangmoon778.workers.dev"
+//     }
+//   ],
+  "vars": {
+    "ENVIRONMENT": "production",
+    "OPENAI_API_KEY": "you openai api key"
+  },
+  "build": {
+    "command": "npm run build",
+    "watch_dir": "src"
+  },
+  "env": {
+    "development": {
+      "vars": {
+        "ENVIRONMENT": "development",
+        "OPENAI_API_KEY": "you openai api key"
+      }
+    },
+    "production": {
+      "vars": {
+        "ENVIRONMENT": "production",
+        "OPENAI_API_KEY": "you openai api key"
+      }
+    }
+  }
+}
